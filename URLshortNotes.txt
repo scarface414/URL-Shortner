@@ -1,0 +1,72 @@
+You create a package by adding an __init__.py file to a directory
+
+To run the API, you need a web server. 
+Uvicorn is a web server implementation for Python that provides an Asynchronous Server Gateway Interface (ASGI). Web Server Gateway Interfaces (WSGI) specify how your web server communicates with your web application.
+
+SQLAlchemy is a Python SQL tool kit that helps you communicate with your database. Instead of writing raw SQL statements, you can use SQLAlchemy’s Object-Relational Mapper (ORM). 
+
+You can install all dependencies in one command by chaining the package names.
+
+It makes sense to use different settings for different environments. Your local development environment may use a differently named database than an online production environment.
+
+To be flexible, you store this information in special variables that you can adjust for each environment. While you won’t take steps to host your app online in this tutorial, you’ll build your app in a way that enables you to deploy it to the cloud in the future
+
+It’s recommended to have different .env files for different environments
+Never upload .env file to GITHUB as it contains sensitive information.
+
+The declarative_base function returns a class that connects the database engine to the SQLAlchemy functionality of the models.
+
+models.Base.metadata.create_all(bind=engine)
+
+This by default will not recreate the existing database.
+bind – A Connectable used to access the database; if None, uses the existing bind on this MetaData, if any.
+
+main.py, is always outside of the package. This will save you a lot of headaches.
+
+package1/
+--file.py
+package2/
+--file.py
+main.py
+
+
+Note : you want to define what data your endpoint expects and what the endpoint should return. Ideally, you should outsource any computation of your data to other functions.
+
+session.commit()
+Flush pending changes and commit the current transaction.
+
+When the COMMIT operation is complete, all objects are fully
+expired, erasing their internal contents, which will be automatically re-loaded when the objects are next accessed. 
+
+request : Request (it creates a starletter request object of current request)
+
+Request Body vs Parameters : 
+
+Request Body items are intialized with pydantic Base Models. 
+Example here I pass two pydantic models as requirements
+
+Non pydantic models are treated as Parameters. 
+
+example : 
+
+Code : 
+async def create_url(
+        url : BaseURL,  
+        session = Depends(get_db), 
+        custom_key : Union[BaseURL, None] = None
+) : 
+
+Request Body : 
+{
+  "url": {
+    "target_url": "string"
+  },
+  "custom_key": {
+    "target_url": "string"
+  }
+}
+
+
+cp -r /path/to/your/local/project/* /path/to/cloned/repo/
+cp -r C:\Users\HP\Desktop\FastAPI learning\"URL shortner"\* C:\Users\HP\Desktop\FastAPI learning\Github URL shortner\URL-Shortner\
+cp -r "C:\Users\HP\Desktop\FastAPI learning\"URL shortner"\*"* "C:\Users\HP\Desktop\FastAPI learning\"Github URL shortner"\URL-Shortner\"

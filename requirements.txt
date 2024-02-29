@@ -1,0 +1,6 @@
+uvicorn 
+sqlalchemy 
+fastapi
+validators
+pydantic-settings
+psycopg2
